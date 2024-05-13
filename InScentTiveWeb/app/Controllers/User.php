@@ -99,10 +99,7 @@ class User extends BaseController
                     "label" => "User Email",
                     "rules" => "required|min_length[3]|max_length[100]"
                 ],
-                "UP" => [
-                    "label" => "User Password",
-                    "rules" => "required|min_length[1]|max_length[20]"
-                ],
+              
             ];
 
             if ($this->validate($rules)) {
@@ -110,9 +107,10 @@ class User extends BaseController
                     "name" => $this->request->getVar("UN"),
                     "fullName" => $this->request->getVar("UFN"),
                     "email" => $this->request->getVar("UE"),
-                    "password" => password_hash($this->request->getVar("UP"), PASSWORD_BCRYPT),
+                    
                 );
-                $result = $this->UserModel->updateUserRecord($postdata, $this->request->getVar("UID"));
+                $result = $this->UserModel->updateUserRecord($this->request->getVar("UID"), $postdata);
+
 
                 if ($result == 1) {
                     return redirect()->to('/');

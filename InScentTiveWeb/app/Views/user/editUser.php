@@ -28,30 +28,27 @@
         ?>
 
 
-        <?= form_open("user/edit/" . $user_info->userID); ?>
+        <?= form_open("user/edit/" . $user_info["userID"]); ?>
         <div class="form-group row">
             <div class="col-sm-12 mb-3 mb-sm-0">
                 <input type="hidden" class="form-control form-control-user" id="UID" name="UID"
-                    value="<?= $user_info->userID ?>" placeholder="User ID" readonly>
+                    value="<?= $user_info["userID"] ?>" placeholder="User ID" readonly>
             </div>
         </div>
         <div class="form-group row">
             <div class="col-sm-4">
                 <input type="text" class="form-control form-control-user" id="UN" name="UN"
-                    value="<?= $user_info->name ?>" placeholder="User Name" required>
+                    value="<?= $user_info["nickName"] ?>" placeholder="User Name" required>
             </div>
             <div class="col-sm-4">
                 <input type="text" class="form-control form-control-user" id="UFN" name="UFN"
-                    value="<?= $user_info->fullName ?>" placeholder="User Full Name"required>
+                    value="<?= $user_info["fullName"] ?>" placeholder="User Full Name"required>
             </div>
             <div class="col-sm-4">
                 <input type="text" class="form-control form-control-user" id="UE" name="UE"
-                    value="<?= $user_info->email ?>" placeholder="User Email"required>
+                    value="<?= $user_info["email"] ?>" placeholder="User Email"required>
             </div>
-            <div class="col-sm-4">
-                <input type="text" class="form-control form-control-User" id="UP" name="UP"
-                    value="<?= $user_info->password ?>" placeholder="User Password"required>
-            </div>
+            
         </div>
        
 

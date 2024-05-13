@@ -35,13 +35,12 @@
                 <tbody>
                     <?php foreach ($cart_info as $cart) : ?>
                         <tr>
-                            <td><?= $cart->id ?></td>
-                            <td><?= $cart->user_id ?></td>
-                            <td><?= $cart->scent_id ?></td>
-                            <td><?= $cart->quantity ?></td>
-                            <td><?= $cart->time_added ?></td>
+                            <td><?= $cart['id'] ?></td>
+                            <td><?= $cart['user_id'] ?></td>
+                            <td><?= $cart['scent_id'] ?></td>
+                            <td><?= $cart['quantity'] ?></td>
                             <td>
-                                <a class='btn btn-danger btn-block' href='<?= base_url("cart/removeFromCart/{$cart->id}") ?>'>
+                                <a class='btn btn-danger btn-block' href='<?= base_url("cart/removeFromCart/{$cart['id']}") ?>'>
                                     <i class='fas fa-trash'></i> Remove
                                 </a>
                             </td>

@@ -17,7 +17,7 @@ class User_model extends Model
 
     public function getUserInfoBySN($SN)
     {
-        return $this->find($SN); // Retrieve a user record by userID
+        return $this->where('userID', $SN)->first(); // Retrieve a user record by userID
     }
 
     public function getUserInfoByEmail($email)
@@ -30,9 +30,9 @@ class User_model extends Model
         return $this->insert($data); // Insert a new user record
     }
 
-    public function updateUserRecord($SN, $data)
+    public function updateUserRecord($userID, $data)
     {
-        return $this->update($SN, $data); // Update a user record by userID
+        return $this->update(['userID' => $userID], $data); // Update a user record by userID
     }
 
     public function deleteUserRecord($SN)

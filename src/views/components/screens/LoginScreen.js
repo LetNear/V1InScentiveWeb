@@ -21,7 +21,7 @@ const LoginScreen = () => {
      
       params.append("email", userEmail);
 
-      const url = new URL("http://192.168.1.4/InScentTiveWeb/api/user/email");
+      const url = new URL("http://10.0.0.58/InScentTiveWeb/api/user/email");
       url.search = params;
       // Make the login request to the server
       const response = await fetch(url, {
