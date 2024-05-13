@@ -12,7 +12,7 @@
         </a>
 
         <?php if (isset($validation) && $validation->getErrors()) : ?>
-            <div class="alert alert-danger" role="alert">
+            <div class="alert alert-danger mt-3" role="alert">
                 <ul>
                     <?php foreach ($validation->getErrors() as $error) : ?>
                         <li><?= esc($error) ?></li>
@@ -22,26 +22,24 @@
         <?php endif; ?>
 
         <?php if (isset($error_message)) : ?>
-            <div class="alert alert-danger" role="alert">
+            <div class="alert alert-danger mt-3" role="alert">
                 <?= esc($error_message) ?>
             </div>
         <?php endif; ?>
 
         <?= form_open("cart/editCartItem/{$scent_info->id}"); ?>
         <div class="form-group row">
-            <div class="col-sm-12 mb-3 mb-sm-0">
-                <input type="hidden" class="form-control form-control-user" id="ScentID" name="ScentID" value="<?= $scent_info->id ?>" placeholder="Scent ID" readonly>
-            </div>
-        </div>
-        <div class="form-group row">
             <div class="col-sm-4">
-                <input type="text" class="form-control form-control-user" id="Name" name="Name" value="<?= $scent_info->name ?>" placeholder="Name" required>
+                <label for="Name">Name</label>
+                <input type="text" class="form-control" id="Name" name="Name" value="<?= $scent_info->name ?>" placeholder="Name" required>
             </div>
             <div class="col-sm-4">
-                <input type="text" class="form-control form-control-user" id="Quantity" name="Quantity" value="<?= $scent_info->qty ?>" placeholder="Quantity" required>
+                <label for="Quantity">Quantity</label>
+                <input type="text" class="form-control" id="Quantity" name="Quantity" value="<?= $scent_info->qty ?>" placeholder="Quantity" required>
             </div>
             <div class="col-sm-4">
-                <input type="text" class="form-control form-control-user" id="Price" name="Price" value="<?= $scent_info->price ?>" placeholder="Price" required>
+                <label for="Price">Price</label>
+                <input type="text" class="form-control" id="Price" name="Price" value="<?= $scent_info->price ?>" placeholder="Price" required>
             </div>
         </div>
 

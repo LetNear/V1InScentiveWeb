@@ -34,4 +34,23 @@ class Scent_model extends Model
     {
         return $this->delete($id); // Delete a scent record by ID
     }
+
+    public function increaseScentQuantity($scentId, $quantity)
+    {
+        // Retrieve the scent item from the database
+        $scentItem = $this->getScentById($scentId);
+
+        if ($scentItem) {
+            // Increase the quantity of the scent by the quantity being removed from the cart
+            $newQuantity = $scentItem['qty'] + $quantity;
+
+            // Update the scent item with the new quantity
+            $data = [
+                'qty' => $newQuantity
+            ];
+
+            $this->updateScentRecord($scentId, $data);
+        }
+    }
+
 }

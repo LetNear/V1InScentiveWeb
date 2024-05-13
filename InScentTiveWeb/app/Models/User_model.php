@@ -22,8 +22,9 @@ class User_model extends Model
 
     public function getUserInfoByEmail($email)
     {
-        return $this->where('email', $email)->first(); // Retrieve a user record by email
+        return $this->select('userID, nickName, fullName, email, password')->where('email', $email)->first();
     }
+    
 
     public function insertUserRecord($data)
     {

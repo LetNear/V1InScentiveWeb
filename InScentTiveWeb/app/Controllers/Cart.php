@@ -100,57 +100,25 @@ class Cart extends BaseController
         if ($result == 1) {
             return redirect()->to('/cart/index');
         }
-        // Get scent information
-        // $scent = $this->Scent_model->getScentInfo();
-
-        // // Check if scent information is valid
-        // if (!isset($scent['qty'])) {
-        //     return redirect()->back()->with('error', 'Scent information is invalid.');
-        // }
-
-        // // Check if the quantity is available
-        // $scentQuantity = $scent['qty'];
-        // $existingCartItem = $this->cartModel->getCartItem($scentId, $userId);
-        // $newQuantity = $existingCartItem ? $existingCartItem['quantity'] + 1 : 1;
-        // if ($newQuantity > $scentQuantity) {
-        //     echo "error";
-        // }
-
-        // // Add the item to the cart
-        // $cartData = [
-        //     'user_id' => $userId,
-        //     'scent_id' => $scentId,
-        //     'quantity' => $newQuantity
-        // ];
-        // $this->cartModel->insertCartItem($cartData);
-
-        // // Redirect back to the cart page
-        // return redirect()->to('/cart/index')->with('success', 'Item added to cart.');
     }
 
-    // public function removeFromCart($cartId)
-    // {
-    //     // Retrieve the cart item from the database
-    //     $cartItem = $this->cartModel->getCartItemById($cartId);
-
-    //     if (!$cartItem) {
-    //         return redirect()->back()->with('error', 'Cart item not found.');
-    //     }
-
-    //     // Decrease the quantity in the cart by 1
-    //     $newQuantity = $cartItem['quantity'] - 1;
-    //     if ($newQuantity > 0) {
-    //         // If the new quantity is greater than 0, update the cart item quantity
-    //         $this->cartModel->updateCartItemQuantity($cartId, $newQuantity);
-    //     } else {
-    //         // If the new quantity is 0, remove the item from the cart
-    //         $this->cartModel->deleteCartItem($cartId);
-    //     }
-
-    //     // Update the quantity of the scent in the scent table by increasing it by 1
-    //     $this->scentModel->increaseScentQuantity($cartItem['scent_id']);
-
-    //     // Redirect back to the cart page
-    //     return redirect()->to('/cart')->with('success', 'Item removed from cart.');
-    // }
+    public function removeFromCart($cartId)
+    {
+        // Retrieve the cart item from the database
+        $cartItem = $this->Cart_model->getCartItemById($cartId);
+    
+        if (!$cartItem) {
+            return redirect()->back()->with('error', 'Cart item not found.');
+        }
+    
+        // Remove the item from the cart
+        $this->Cart_model->deleteCartItem($cartId);
+    
+        // Update the quantity of the scent in the scent table by increasing it by the quantity that was removed
+        $this->Scent_model->increaseScentQuantity($cartItem['scent_id'], $cartItem['quantity']);
+    
+        // Redirect back to the cart page
+        return redirect()->to('/cart/index')->with('success', 'Item removed from cart.');
+    }
+    
 }

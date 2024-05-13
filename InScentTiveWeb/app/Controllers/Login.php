@@ -27,28 +27,34 @@ class Login extends Controller
     {
         // Load the model
         $userModel = new \App\Models\User_model();
-
+    
         // Get the input values from the form
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
-        var_dump($password);
+    
         // Get user info by email
         $user = $userModel->getUserInfoByEmail($email);
-
+    
         if ($user) {
             // Verify the password
-            if (password_verify($password, $user->password)) {
+            if (password_verify($password, $user["password"])) {
                 // Authentication successful, set session and redirect to dashboard
                 $session = session();
-                $session->set('user_id', $user->userID);
-                return redirect()->to('/');
+                $session->regenerate(); // Regenerate session ID for security
+                $session->set('user_id', $user["userID"]);
+                return redirect()->to('/')->with('success', 'Login successful!'); // Change this URL to your dashboard URL
+            } else {
+                // Authentication failed due to incorrect password
+                return redirect()->to('/login')->with('error', 'Invalid email or password');
             }
+        } else {
+            // Authentication failed due to user not found
+            return redirect()->to('/login')->with('error', 'User not found');
         }
-
-        // Authentication failed, redirect back to login page with error message
-        return redirect()->to('/login')->with('error', 'Invalid email or password');
     }
+    
 
+    
     public function logout()
     {
         // Destroy the session and redirect to login page

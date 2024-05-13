@@ -9,7 +9,6 @@
             <i class="fas fa-cart-plus"></i> Add to Cart
         </a>
 
-
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
@@ -18,8 +17,7 @@
                         <th>User ID</th>
                         <th>Scent ID</th>
                         <th>Quantity</th>
-                        <th>Time Added</th>
-                        <th>Functions</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -28,8 +26,7 @@
                         <th>User ID</th>
                         <th>Scent ID</th>
                         <th>Quantity</th>
-                        <th>Time Added</th>
-                        <th>Functions</th>
+                        <th>Actions</th>
                     </tr>
                 </tfoot>
                 <tbody>
@@ -40,7 +37,7 @@
                             <td><?= $cart['scent_id'] ?></td>
                             <td><?= $cart['quantity'] ?></td>
                             <td>
-                                <a class='btn btn-danger btn-block' href='<?= base_url("cart/removeFromCart/{$cart['id']}") ?>'>
+                                <a class='btn btn-danger btn-sm' href='<?= base_url("cart/delete/{$cart['id']}") ?>'>
                                     <i class='fas fa-trash'></i> Remove
                                 </a>
                             </td>

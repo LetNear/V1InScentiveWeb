@@ -39,7 +39,7 @@ $routes->get('/scent/create', 'Scent::createScent');
 $routes->post('/scent/create', 'Scent::createScent');
 
 $routes->get('/cart/index', 'Cart::index');
-$routes->get('/cart/delete/(:num)', 'Cart::deleteItem/$1');
+$routes->get('/cart/delete/(:num)', 'Cart::removeFromCart/$1');
 $routes->get('/cart/edit/(:num)', 'Cart::editItem/$1');
 $routes->post('/cart/edit/(:num)', 'Cart::editItem/$1');
 $routes->get('/cart/addToCart', 'Cart::addToCart');
