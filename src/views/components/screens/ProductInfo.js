@@ -13,6 +13,7 @@ import Button from "../Button"; // Make sure the path is correct
 
 import { useContext } from "react";
 import { AuthContext } from "../AuthContext";
+import HomeScreen from "./HomeScreen";
 
 const ProductInfo = ({ route, navigation }) => {
   const { product } = route.params;
@@ -41,6 +42,7 @@ const ProductInfo = ({ route, navigation }) => {
     // Check if the response is successful (status code 200)
     if (response.ok) {
       console.log((await response).json().data)
+      navigation.navigate(HomeScreen);
     } else {
       const errorText = await response.text();
       Alert.alert(
@@ -59,6 +61,7 @@ const ProductInfo = ({ route, navigation }) => {
           onPress={() => navigation.goBack()}
           style={styles.icon}
         />
+      
         <Text style={styles.headerTitle}>Details</Text>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>

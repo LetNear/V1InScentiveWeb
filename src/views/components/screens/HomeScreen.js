@@ -195,6 +195,11 @@ const data = async () => {
             style={styles.icon}
             onPress={() => navigation.navigate("LoginScreen")}
           />
+          <Icon
+            name="cart-plus"
+            style={styles.icon}
+            onPress={() => navigation.navigate("Cart")}
+          />
           <Text style={styles.titleText}>
             Welcome to HalaMoney{" "}
             {userDetails?.fullname || userDetails?.displayName}
