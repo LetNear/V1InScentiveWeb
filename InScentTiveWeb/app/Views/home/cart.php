@@ -45,10 +45,10 @@
 
     <!-- Cart Items Section -->
     <div class="container mt-5">
-        <?php if (!empty($cart_items)) : ?>
-            <?php foreach ($cart_items as $item) : ?>
+        <?php if (!empty($cartItems)) : ?>
+            <?php foreach ($cartItems as $item) : ?>
                 <div class="cart-item">
-                    <h5><?= $item['scent_name']; ?></h5>
+                    <h5><?= $item['name']; ?></h5>
                     <p>Quantity: <?= $item['quantity']; ?></p>
                     <p>Price: <?= $item['price']; ?></p>
                     <form action="<?= base_url('cart/removeFromCart/' . $item['id']); ?>" method="post">

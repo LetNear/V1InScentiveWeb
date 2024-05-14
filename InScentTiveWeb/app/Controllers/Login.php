@@ -42,6 +42,8 @@ class Login extends Controller
                 $session = session();
                 $session->regenerate(); // Regenerate session ID for security
                 $session->set('user_id', $user["userID"]);
+
+                
                 return redirect()->to('/')->with('success', 'Login successful!'); // Change this URL to your dashboard URL
             } else {
                 // Authentication failed due to incorrect password

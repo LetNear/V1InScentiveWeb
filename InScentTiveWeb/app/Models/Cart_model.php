@@ -4,6 +4,8 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
+use CodeIgniter\Database\MySQLi\Result;
+
 class Cart_model extends Model
 {
     protected $table = 'cart';
@@ -13,6 +15,11 @@ class Cart_model extends Model
     public function getCartInfo(): array
     {
         return $this->findAll(); // Retrieve all cart items
+    }
+
+    public function getUserCarts($id)
+    {
+        return $this->db->query("SELECT * FROM cart c JOIN scent s on s.id = c.scent_id WHERE c.id = $id")->getResultArray();
     }
 
     public function getCartItemById(int $id): ?array

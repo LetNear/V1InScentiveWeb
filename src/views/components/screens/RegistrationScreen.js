@@ -38,7 +38,7 @@ const RegistrationScreen = () => {
 
 
       // Make API call to register user
-      const response = await fetch("http://10.0.0.58/InScentTiveWeb/api/users/create", {
+      const response = await fetch("http://172.21.16.1/InScentTiveWeb/api/users/create", {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/x-www-form-urlencoded',

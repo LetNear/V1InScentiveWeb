@@ -4,6 +4,10 @@ namespace App\Controllers;
 
 
 use App\Models\User_model;
+use App\Models\Scent_model;
+use App\Models\Cart_model;
+
+
 use CodeIgniter\Email\Email;
 use Google\Service\BigQueryDataTransfer\UserInfo;
 
@@ -14,6 +18,8 @@ class Api extends BaseController
     public function __construct()
     {
         $this->UserModel = new User_model();
+        $this->ScentModel = new Scent_model();
+        $this->CartModel = new Cart_model();
     }
 
     public function users()
@@ -95,7 +101,7 @@ class Api extends BaseController
 
     public function createUser()
     {
-       
+
         $requestBody = json_decode($this->request->getBody());
         $name = $requestBody->username;
         $fullName = $requestBody->fullName;
@@ -168,6 +174,215 @@ class Api extends BaseController
 
         return $this->response->setJSON($response);
     }
+
+    public function getScent()
+    {
+        $scent = $this->ScentModel->getScentInfo();
+
+        if (!$scent) {
+            $response = [
+                'code' => 404,
+                'message' => "No user scent found",
+                'data' => [],
+            ];
+        }
+
+        $response = [
+            'code' => 200,
+            'message' => "Successfully fetched scent",
+            'data' => $scent
+        ];
+
+        return $this->response->setJSON($response);
+    }
+
+    public function createScent()
+    {
+        $requestBody = json_decode($this->request->getBody());
+
+        $name = $requestBody->name;
+        $qty = $requestBody->qty;
+        $price = $requestBody->price;
+        $description = $requestBody->description;
+
+        $scentdata = [
+            'name' => $name,
+            'qty' => $qty,
+            'price' => $price,
+            'description' => $description,
+
+        ];
+
+        $user = $this->ScentModel->insertScentRecord($scentdata);
+
+        if (!$user) {
+            $response = [
+                'code' => 500,
+                'message' => "There was an unexpected error",
+                'data' => $scentdata,
+            ];
+        }
+        $response = [
+            'code' => 200,
+            'message' => 'Success',
+            'data' => $user,
+        ];
+
+        return $this->response->setJSON($response);
+    }
+
+    public function updateScent($id)
+    {
+        $input = json_decode($this->request->getBody());
+        $userData = $this->ScentModel->getScentById($id);
+        $name = $input->name;
+        $quantity = $input->qty;
+        $price = $input->price;
+        $description = $input->description;
+
+        $userData = [
+            'name' => $name,
+            'quantity' => $quantity,
+            'price' => $price,
+            'description' => $description,
+        ];
+
+        $user = $this->ScentModel->updateScentRecord($id,$userData);
+
+
+        if (!$user) {
+            $response = [
+                'code' => 500,
+                'message' => "There was an unexpected error",
+                'data' => $userData,
+            ];
+        }
+
+        $userData = $this->ScentModel->getScentById($id);
+
+        $response = [
+            'code' => 200,
+            'message' => 'Success',
+            'data' => $userData,
+        ];
+
+        return $this->response->setJSON($response);
+    }
+
+    public function deleteScent($id)
+    {
+        $scent = $this->ScentModel->getScentById($id);
+        $this->ScentModel->deleteScentRecord($id);
+
+        return $this->response->setJSON([
+            'code' => 200,
+            'message' => 'Scent successfully deleted',
+            'data' => $scent,
+        ]);
+    }
+
+    public function cart()
+    {
+        $users = $this->CartModel->getCartInfo();
+        $response = [
+            'code' => 200,
+            'message' => 'Successfully fetched cart data',
+            'data' => $users
+        ];
+
+        return $this->response->setJSON($response);
+    }
+
+    public function createCart()
+    {
+        $requestBody = json_decode($this->request->getBody());
+        $user_id = $requestBody->user_id;
+        $scent_id = $requestBody->scent_id;
+        $quantity = $requestBody->quantity;
+
+
+        $cartdata = [
+            'user_id' => $user_id,
+            'scent_id' => $scent_id,
+            'quantity' => $quantity,
+
+        ];
+
+        $user = $this->CartModel->insertCartItem($cartdata);
+
+        if (!$user) {
+            $response = [
+                'code' => 500,
+                'message' => "There was an unexpected error",
+                'data' => $cartdata,
+            ];
+        }
+        $response = [
+            'code' => 200,
+            'message' => 'Success',
+            'data' => $user,
+        ];
+
+        return $this->response->setJSON($response);
+    }
+
+    public function updateCart($id)
+    {
+        $input = $this->request->getRawInput();
+        $userData = $this->CartModel->getCartItemById($id);
+        $user_id = $input['user_id'];
+        $scent_id = $input['scent_id'];
+        $quantity = $input['quantity'];
+
+
+        $userData = [
+            'user_id' => $user_id,
+            'scent_id' => $scent_id,
+            'quantity' => $quantity,
+
+        ];
+
+        $user = $this->CartModel->updateCartItemQuantity($userData, $id);
+
+
+        if (!$user) {
+            $response = [
+                'code' => 500,
+                'message' => "There was an unexpected error",
+                'data' => $userData,
+            ];
+        }
+
+        $userData = $this->CartModel->getCartItemById($id);
+
+        $response = [
+            'code' => 200,
+            'message' => 'Success',
+            'data' => $userData,
+        ];
+
+        return $this->response->setJSON($response);
+    }
+
+    public function deleteCart($id)
+    {
+        $user = $this->CartModel->getCartItemById($id);
+        $this->CartModel->deleteCartItem($id);
+
+        return $this->response->setJSON([
+            'code' => 200,
+            'message' => 'Cart successfully deleted',
+            'data' => $user,
+        ]);
+    }
+
+
+
+
+
+
+
+
 
 
     // public function plant($PID = null)

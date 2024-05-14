@@ -132,13 +132,16 @@ import React, { useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import Button from "../Button";
+const MyImage = require('../../../../assets/favicon.png');
 const HomeScreen = ({ navigation }) => {
   const [plant, setPlant] = useState([]);
   const [userDetails, setUserDetails] = useState(null);
+  const [scentData, setScentData] = useState([]);
 
   useEffect(() => {
     getUserData();
+    getDataFromDB();
     const unsubscribe = navigation.addListener("focus", getDataFromDB);
     return unsubscribe;
   }, [navigation]);
@@ -150,19 +153,24 @@ const HomeScreen = ({ navigation }) => {
     }
   };
 
-  const getDataFromDB = () => {
-    // Simulated data fetch
-    let productList = [
-      {
-        id: 1,
-        productName: "Aloe Vera",
-        productPrice: "15.99",
-        productImage: require("../../../../assets/icon.png"),
-        category: "plants",
+const data = async () => {
+  
+
+}
+  const getDataFromDB = async () => {
+  
+    const url = new URL("http://172.21.16.1/InScentTiveWeb/api/scents");
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
       },
-      // Add more products as needed
-    ];
-    setPlant(productList.filter((item) => item.category === "plants"));
+    });
+  
+  
+  setScentData((await response.json()).data);
+  console.log(scentData);
+  
   };
 
   const PlantCard = ({ data }) => (
@@ -171,10 +179,10 @@ const HomeScreen = ({ navigation }) => {
       style={styles.card}
     >
       <View style={styles.imageContainer}>
-        <Image source={data.productImage} style={styles.productImage} />
+        <Image source={MyImage} style={styles.productImage} />
       </View>
-      <Text style={styles.productName}>{data.productName}</Text>
-      <Text>Php {data.productPrice}</Text>
+      <Text style={styles.productName}>{data.name}</Text>
+      <Text>Php {data.price}</Text>
     </TouchableOpacity>
   );
 
@@ -198,7 +206,7 @@ const HomeScreen = ({ navigation }) => {
          
         </View>
         <View style={styles.productContainer}>
-          {plant.map((data) => (
+          {scentData.map((data) => (
             <PlantCard data={data} key={data.id} />
           ))}
         </View>
@@ -248,6 +256,10 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
     marginBottom: 20,
     justifyContent: "center",
+  },
+  icon:{
+    paddingTop: 50,
+    fontSize: 20,
   },
 });
 

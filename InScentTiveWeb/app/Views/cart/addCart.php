@@ -8,10 +8,10 @@
             <i class="fas fa-arrow-left"></i> Return to Cart
         </a>
 
-        <?php if (isset($validation)): ?>
+        <?php if (isset($validation)) : ?>
             <div class="alert alert-danger" role="alert">
                 <ul>
-                    <?php foreach ($validation as $error): ?>
+                    <?php foreach ($validation as $error) : ?>
                         <li><?= esc($error) ?></li>
                     <?php endforeach; ?>
                 </ul>
@@ -24,7 +24,7 @@
                 <label for="scent_id">Select Scent</label>
                 <select class="form-control" id="scent_id" name="scent_id">
                     <option value="">Choose...</option>
-                    <?php foreach ($scents as $scent): ?>
+                    <?php foreach ($scents as $scent) : ?>
                         <option value="<?= $scent["id"] ?>"><?= $scent["name"] ?></option>
                     <?php endforeach; ?>
                 </select>
@@ -33,15 +33,14 @@
                 <label for="user_id">Select User</label>
                 <select class="form-control" id="user_id" name="user_id">
                     <option value="">Choose...</option>
-                    <?php foreach ($users as $user): ?>
+                    <?php foreach ($users as $user) : ?>
                         <option value="<?= $user["userID"] ?>"><?= $user["nickName"] ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="quantity">Quantity</label>
-                <input type="number" class="form-control" id="quantity" name="quantity" value=""
-                    placeholder="Quantity">
+                <input type="number" class="form-control" id="quantity" name="quantity" value="" placeholder="Quantity">
             </div>
         </div>
 

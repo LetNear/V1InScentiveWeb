@@ -16,7 +16,6 @@ class Home extends BaseController
     }
    public function index(): string
     {
-        // Load the Scent_model
         $scentModel = new Scent_model();
         $userModel = new User_model();
 

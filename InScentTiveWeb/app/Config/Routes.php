@@ -30,6 +30,16 @@ $routes->delete('/api/users/(:num)', 'Api::deleteUser/$1');
 $routes->post('/api/users/create', 'Api::createUser');
 $routes->put('/api/users/(:num)', 'Api::updateUser/$1');
 
+$routes->get('/api/scents', 'Api::getScent');
+$routes->post('/api/scents/create', 'Api::createScent');
+$routes->delete('/api/scents/(:num)', 'Api::deleteScent/$1');
+$routes->put('/api/scents/(:num)', 'Api::updateScent/$1');
+
+$routes->get('/api/cart', 'Api::cart');
+$routes->post('/api/cart/create', 'Api::createCart');
+$routes->delete('/api/cart/(:num)', 'Api::deleteCart/$1'); 
+$routes->put('/api/cart/(:num)', 'Api::updateCart/$1');
+
 
 $routes->get('/scent/index', 'Scent::index');
 $routes->get('/scent/delete/(:num)', 'Scent::deleteScent/$1');
@@ -47,8 +57,8 @@ $routes->post('/cart/addToCart', 'Cart::addCart');
 
 
 $routes->get('/home', 'Home::index');
-$routes->get('/cartadded', 'CartAdd::index');
-$routes->post('/cartAdded/index', 'CartAdd::index');
+$routes->post('/cartadded', 'CartAdd::add');
+$routes->get('/cartAdded/index', 'CartAdd::index');
 
 
 

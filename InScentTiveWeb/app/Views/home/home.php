@@ -52,7 +52,7 @@
                         <p class="card-text">Quantity: <?= $product['qty']; ?></p>
                         <p class="card-text">Price: <?= $product['price']; ?></p>
                         <!-- Add to Cart Form -->
-                        <form action="<?= base_url('cartAdded/index'); ?>" method="post">
+                        <form action="<?= base_url('cartadded'); ?>" method="post">
                             <input type="hidden" name="scent_id" value="<?= $product['id']; ?>">
                             <input type="hidden" name="user_id" value="<?= $user_id; ?>"> <!-- Assuming you have $user_id available -->
                             <div class="form-group">

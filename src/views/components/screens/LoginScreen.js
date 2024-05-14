@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, Text, StyleSheet, Alert, ActivityIndicator } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Button, Input, Icon } from "@rneui/themed";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { compare } from "bcryptjs";
 import Loader from "../Loader";
+import { AuthContext } from "../AuthContext";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -12,16 +13,17 @@ const LoginScreen = () => {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [loading, setLoading] = useState(false); // State to control the loading indicator
+  const { setUser } = useContext(AuthContext);
 
   const handleLogin = async () => {
     try {
       setLoading(true); // Start the loading indicator
 
       const params = new URLSearchParams();
-     
+
       params.append("email", userEmail);
 
-      const url = new URL("http://10.0.0.58/InScentTiveWeb/api/user/email");
+      const url = new URL("http://172.21.16.1/InScentTiveWeb/api/user/email");
       url.search = params;
       // Make the login request to the server
       const response = await fetch(url, {
@@ -41,6 +43,7 @@ const LoginScreen = () => {
 
           if (result) {
             Alert.alert("Login Successful", "Welcome back!");
+            setUser(userData);
             navigation.navigate("HomeScreen");
           } else {
             console.log("prompt: invalid credentials");
