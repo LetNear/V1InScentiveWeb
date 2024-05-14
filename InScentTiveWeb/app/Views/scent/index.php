@@ -19,7 +19,7 @@
                         <th>Name</th>
                         <th>Quantity</th>
                         <th>Price</th>
-
+                        <th>Description</th> <!-- New column -->
                         <th>Functions</th>
                     </tr>
                 </thead>
@@ -29,33 +29,30 @@
                         <th>Name</th>
                         <th>Quantity</th>
                         <th>Price</th>
-
+                        <th>Description</th> <!-- New column -->
                         <th>Functions</th>
                     </tr>
                 </tfoot>
                 <tbody>
                     <?php
                     foreach ($scent_info as $scent) {
-             
                         echo "<tr>";
                         echo "<td>" . $scent['id'] . "</td>";
                         echo "<td>" . $scent['name'] . "</td>";
                         echo "<td>" . $scent['qty'] . "</td>";
-                        echo "<td>" . $scent['price'] . "</td>";                       
+                        echo "<td>" . $scent['price'] . "</td>";
+                        echo "<td>" . $scent['description'] . "</td>"; 
                         echo "
                             <td>
-                            <a class='btn btn-warning btn-block' href='" . base_url() . "scent/edit/" .
-                            $scent['id'] . "'>
-                            <i class='fas fa-pen'></i> Edit
-                            </a>
-                            <a class='btn btn-danger btn-block' href='" . base_url() . "scent/delete/" .
-                            $scent['id'] . "'>
-                            <i class='fas fa-pen'></i> Delete
-                            </a>
+                                <a class='btn btn-warning btn-block' href='" . base_url() . "scent/edit/" . $scent['id'] . "'>
+                                    <i class='fas fa-pen'></i> Edit
+                                </a>
+                                <a class='btn btn-danger btn-block' href='" . base_url() . "scent/delete/" . $scent['id'] . "'>
+                                    <i class='fas fa-trash'></i> Delete
+                                </a>
                             </td>";
                         echo "</tr>";
                     }
-
                     ?>
                 </tbody>
             </table>

@@ -46,6 +46,13 @@ $routes->get('/cart/addToCart', 'Cart::addToCart');
 $routes->post('/cart/addToCart', 'Cart::addCart');
 
 
+$routes->get('/home', 'Home::index');
+$routes->get('/cartadded', 'CartAdd::index');
+$routes->post('/cartAdded/index', 'CartAdd::index');
+
+
+
+
 
 
 

@@ -14,6 +14,11 @@ class User_model extends Model
     {
         return $this->findAll(); // Retrieve all user records
     }
+    public function getUserInfobyID()
+{
+    return $this->select('userID')->findAll(); // Retrieve all user records with only the 'userID' column
+}
+
 
     public function getUserInfoBySN($SN)
     {
@@ -36,10 +41,16 @@ class User_model extends Model
         return $this->update(['userID' => $userID], $data); // Update a user record by userID
     }
 
-    public function deleteUserRecord($SN)
+    // public function deleteUserRecord($SN)
+    // {
+    //     return $this->delete($SN); // Delete a user record by userID
+    // }
+
+    public function deleteUserRecord(int $userID): bool
     {
-        return $this->delete($SN); // Delete a user record by userID
+        return $this->db->table('user')->where('userID', $userID)->delete(); 
     }
+    
 
     public function getUserCart($userID)
     {

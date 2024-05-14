@@ -8,7 +8,7 @@ class Scent_model extends Model
 {
     protected $table = 'scent';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['name', 'qty', 'price'];
+    protected $allowedFields = ['name', 'qty', 'price', 'description']; // Include 'description' field
 
     public function getScentInfo(): array
     {

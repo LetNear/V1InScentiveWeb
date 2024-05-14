@@ -127,12 +127,17 @@ class User extends BaseController
         echo view('template/footer');
     }
 
-    public function deleteUser($id)
+    public function deleteUser($userID)
     {
-        $result = $this->UserModel->deleteUserRecord($id);
-
-        if ($result == 1) {
+        $result = $this->UserModel->deleteUserRecord($userID);
+    
+        if ($result) {
             return redirect()->to('/');
+        } else {
+           echo "error";
         }
     }
+    
+    
+    
 }

@@ -1,53 +1,58 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Scent Table</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Add New Scent</h6>
     </div>
     <div class="card-body">
-        <a href="<?= base_url("scent/index"); ?>" class="btn btn-warning btn-icon-split">
+        <a href="<?= base_url("scent/index"); ?>" class="btn btn-warning btn-icon-split mb-3">
             <span class="icon text-white-50">
                 <i class="fas fa-arrow-left"></i>
             </span>
-            <span class="text">Return</span>
+            <span class="text">Return to Scent Table</span>
         </a>
 
-        <?php
-        if (isset($validation)) {
-            echo '
-                    <div class="alert alert-danger" role="alert">
-                    <ul>  
-                ';
-            foreach ($validation as $validation) {
-                echo "<li>" . esc($validation) . "</li>";
-            }
-            echo '
-                        </ul>
-                    </div>
-                ';
-        }
-        ?>
-
+        <?php if (isset($validation)): ?>
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    <?php foreach ($validation as $error): ?>
+                        <li><?= esc($error) ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
 
         <?= form_open("scent/create"); ?>
         <div class="form-group row">
+            <label for="Name" class="col-sm-2 col-form-label">Scent Name</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control form-control-user" id="Name" name="Name" value=""
-                    placeholder="Scent Name">
+                <input type="text" class="form-control" id="Name" name="Name" value=""
+                    placeholder="Scent Name" required>
             </div>
+            <label for="Quantity" class="col-sm-2 col-form-label">Quantity</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control form-control-user" id="Quantity" name="Quantity" value=""
-                    placeholder="Quantity">
-            </div>
-            <div class="col-sm-4">
-                <input type="text" class="form-control form-control-user" id="Price" name="Price" value=""
-                    placeholder="Price">
+                <input type="text" class="form-control" id="Quantity" name="Quantity" value=""
+                    placeholder="Quantity" required>
             </div>
         </div>
-       
-
-        <button class="btn btn-primary btn-block">
-            <i class="fas fa-plus"></i> Add Scent
-        </button>
-        </form>
+        <div class="form-group row">
+            <label for="Price" class="col-sm-2 col-form-label">Price</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="Price" name="Price" value=""
+                    placeholder="Price" required>
+            </div>
+            <label for="Description" class="col-sm-2 col-form-label">Description</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="Description" name="Description" value=""
+                    placeholder="Description">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12 text-center">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add Scent
+                </button>
+            </div>
+        </div>
+        <?= form_close(); ?>
     </div>
 </div>
