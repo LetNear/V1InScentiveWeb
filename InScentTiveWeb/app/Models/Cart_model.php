@@ -19,7 +19,7 @@ class Cart_model extends Model
 
     public function getUserCarts($id)
     {
-        return $this->db->query("SELECT * FROM cart c JOIN scent s on s.id = c.scent_id WHERE c.id = $id")->getResultArray();
+        return $this->db->query("SELECT c.id as cart_id, c.*, s.* FROM cart c JOIN scent s ON s.id = c.scent_id WHERE c.id = $id")->getResultArray();
     }
 
     public function getCartItemById(int $id): ?array
