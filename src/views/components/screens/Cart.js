@@ -1,3 +1,4 @@
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -6,7 +7,6 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthContext } from "../AuthContext";
@@ -34,7 +34,7 @@ const Cart = ({ navigation }) => {
 
   const getDataFromDB = async () => {
     const url = new URL(
-      "http://172.21.16.1/InScentTiveWeb/api/cart/" + user.userID
+      "http://172.22.112.1/InScentTiveWeb/api/cart/" + user.userID
     );
     const response = await fetch(url, {
       method: "GET",
@@ -47,7 +47,7 @@ const Cart = ({ navigation }) => {
   };
 
   const deleteData = async (id) => {
-    const url = `http://172.21.16.1/InScentTiveWeb/api/cart/${id}`;
+    const url = `http://172.22.112.1/InScentTiveWeb/api/cart/${id}`;
 
     const response = await fetch(url, {
       method: "DELETE",
@@ -56,7 +56,7 @@ const Cart = ({ navigation }) => {
       },
     });
     if (response.ok) {
-        getDataFromDB();
+      getDataFromDB();
     }
   };
 
@@ -67,10 +67,10 @@ const Cart = ({ navigation }) => {
       </View>
       <View style={styles.productInfo}>
         <Text style={styles.productName}>{data.name}</Text>
-        <Text>Php {data.price}</Text>
+        <Text style={styles.productPrice}>Php {data.price}</Text>
         <Icon
           name="trash"
-          style={styles.icon}
+          style={styles.iconTrash}
           onPress={() => deleteData(data.cart_id)}
         />
       </View>
@@ -80,31 +80,31 @@ const Cart = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <View style={styles.subContainer}>
+        <View style={styles.header}>
+          <Icon
+            name="arrow-left"
+            style={styles.backIcon}
+            onPress={() => navigation.goBack()}
+          />
           <Icon
             name="sign-out-alt"
-            style={styles.icon}
+            style={styles.signOutIcon}
             onPress={() => navigation.navigate("LoginScreen")}
           />
-          <Icon
-            name="cart-plus"
-            style={styles.icon}
-            onPress={() => navigation.navigate("Cart")}
-          />
+        </View>
+        <View style={styles.subContainer}>
           <Text style={styles.titleText}>
-            Welcome to HalaMoney{" "}
+            Welcome to InScentTive{" "}
             {userDetails?.fullname || userDetails?.displayName}
           </Text>
           <Text style={styles.subHead}>
-            Watch your savings blossom with HalaMoney - where money grows on
-            trees.
+            Discover the best scents with InScentTive - where every scent tells a story.
           </Text>
         </View>
         <View style={styles.productContainer}>
-          {scentData.map((data) => {
-            console.log(data)
-            return <PlantCard data={data} key={data.id} />;
-          })}
+          {scentData.map((data) => (
+            <PlantCard data={data} key={data.cart_id} />
+          ))}
         </View>
       </ScrollView>
     </View>
@@ -113,9 +113,27 @@ const Cart = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    height: "100%",
+    flex: 1,
+    backgroundColor: "#E8F5E9", // Light green background
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    paddingVertical: 10,
     backgroundColor: "#99CC99",
+  },
+  backIcon: {
+    paddingTop: 20,
+    fontSize: 24,
+    color: "#388E3C",
+  },
+  signOutIcon: {
+    paddingTop: 20,
+
+    fontSize: 24,
+    color: "#388E3C",
   },
   subContainer: {
     marginBottom: 10,
@@ -151,31 +169,37 @@ const styles = StyleSheet.create({
   },
   productInfo: {
     padding: 16,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   productName: {
     fontSize: 18,
     color: "#333",
     fontWeight: "600",
   },
+  productPrice: {
+    fontSize: 16,
+    color: "#888",
+  },
   titleText: {
     marginTop: 20,
     fontSize: 30,
-    color: "black",
-    fontWeight: "400",
+    color: "#388E3C",
+    fontWeight: "bold",
     letterSpacing: 2,
     marginBottom: 10,
   },
   subHead: {
     fontSize: 15,
-    color: "black",
+    color: "#388E3C",
     fontWeight: "400",
     letterSpacing: 2,
     marginBottom: 20,
-    justifyContent: "center",
   },
-  icon: {
-    paddingTop: 50,
+  iconTrash: {
     fontSize: 20,
+    color: "#E53935",
   },
 });
 

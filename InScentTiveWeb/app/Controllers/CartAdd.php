@@ -25,6 +25,7 @@ class CartAdd extends BaseController
     {
         // Fetch cart information
         $cartItems = $this->cartModel->getUserCarts($this->session->get('user_id'));
+
         // Prepare data to pass to the view
         $data = [
             'cartItems' => $cartItems,
@@ -38,7 +39,7 @@ class CartAdd extends BaseController
     {
         $postdata = array(
             "scent_id" => $this->request->getVar("scent_id"),
-            "user_id" => $this->request->getVar("user_id"),
+            "user_id" => $this->session->get('user_id'),
             "quantity" => $this->request->getVar("quantity"),
         );
 

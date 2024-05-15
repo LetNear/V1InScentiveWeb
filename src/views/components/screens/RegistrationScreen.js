@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Alert } from 'react-native';
-import { ListItem, Button, Icon } from '@rneui/themed';
+import { ListItem, Button, Icon, Input } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import bcryptjs from 'bcryptjs';
 
 const RegistrationScreen = () => {
   const navigation = useNavigation();
@@ -24,7 +21,6 @@ const RegistrationScreen = () => {
       Alert.alert('Weak Password', 'Password must be at least 8 characters long');
       return;
     }
-  
     
     // Prepare user data
     const userData = {
@@ -35,17 +31,15 @@ const RegistrationScreen = () => {
     };
   
     try {
-
-
       // Make API call to register user
-      const response = await fetch("http://172.21.16.1/InScentTiveWeb/api/users/create", {
+      const response = await fetch("http://172.22.112.1/InScentTiveWeb/api/users/create", {
         method: 'POST',
         headers: { 
-          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(userData),
       });
-      console.log(userData);
+
       // Check if registration was successful
       if (response.ok) {
         Alert.alert('Registration Successful', 'You can now log in using your credentials.');
@@ -61,67 +55,57 @@ const RegistrationScreen = () => {
     }
   };
   
-
   return (
     <View style={styles.container}>
-      <ListItem bottomDivider>
-        <ListItem.Content>
-          <ListItem.Title>USERNAME</ListItem.Title>
-        </ListItem.Content>
-        <ListItem.Input
-          placeholder="Enter UserName"
-          onChangeText={setUserName}
-          value={userName}
-        />
-      </ListItem>
-
-      <ListItem bottomDivider>
-        <ListItem.Content>
-          <ListItem.Title>USER FULL NAME</ListItem.Title>
-        </ListItem.Content>
-        <ListItem.Input
-          placeholder="Enter User Full Name"
-          onChangeText={setUserFullName}
-          value={userFullName}
-        />
-      </ListItem>
-
-      <ListItem bottomDivider>
-        <ListItem.Content>
-          <ListItem.Title>USER EMAIL</ListItem.Title>
-        </ListItem.Content>
-        <ListItem.Input
-          placeholder="Enter User Email"
-          onChangeText={setUserEmail}
-          value={userEmail}
-        />
-      </ListItem>
-
-      <ListItem bottomDivider>
-        <ListItem.Content>
-          <ListItem.Title>USER PASSWORD</ListItem.Title>
-        </ListItem.Content>
-        <ListItem.Input
-          placeholder="Enter User Password"
-          onChangeText={setUserPassword}
-          value={userPassword}
-          secureTextEntry
-        />
-      </ListItem>
-
+      <Text style={styles.title}>InScentTive</Text>
+      <Text style={styles.subtitle}>Create your account</Text>
+      
+      <Input
+        label="Username"
+        placeholder="Enter Username"
+        onChangeText={setUserName}
+        value={userName}
+        leftIcon={<Icon name="user" type="font-awesome" color="#4CAF50" />}
+        containerStyle={styles.inputContainer}
+      />
+      
+      <Input
+        label="Full Name"
+        placeholder="Enter Full Name"
+        onChangeText={setUserFullName}
+        value={userFullName}
+        leftIcon={<Icon name="id-card" type="font-awesome" color="#4CAF50" />}
+        containerStyle={styles.inputContainer}
+      />
+      
+      <Input
+        label="Email"
+        placeholder="Enter Email"
+        onChangeText={setUserEmail}
+        value={userEmail}
+        leftIcon={<Icon name="envelope" type="font-awesome" color="#4CAF50" />}
+        containerStyle={styles.inputContainer}
+      />
+      
+      <Input
+        label="Password"
+        placeholder="Enter Password"
+        onChangeText={setUserPassword}
+        value={userPassword}
+        secureTextEntry
+        leftIcon={<Icon name="lock" type="font-awesome" color="#4CAF50" />}
+        containerStyle={styles.inputContainer}
+      />
+      
       <Button
         onPress={registerUser}
         title="Register"
-        type="solid"
-        containerStyle={{
-          marginHorizontal: 16,
-          marginVertical: 8,
-          borderRadius: 8,
-        }}
-        icon={<Icon name="plus" type="font-awesome" color="white" />}
+        buttonStyle={styles.registerButton}
+        icon={<Icon name="user-plus" type="font-awesome" color="white" />}
       />
+      
       <Text
-        style={styles.textRegister}
+        style={styles.textLogin}
         onPress={() => navigation.navigate('LoginScreen')}
       >
         Already have an account? Login
@@ -133,14 +117,35 @@ const RegistrationScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    paddingTop: 30,
-    paddingVertical: 8,
-    paddingStart: 10,
+    backgroundColor: '#f8f8f8',
+    justifyContent: 'center',
+    paddingHorizontal: 16,
   },
-  textRegister: {
+  title: {
+    fontSize: 32,
+    fontWeight: 'bold',
     textAlign: 'center',
-    color: 'blue',
+    color: '#4CAF50',
+    marginBottom: 10,
+  },
+  subtitle: {
+    fontSize: 16,
+    textAlign: 'center',
+    color: '#777',
+    marginBottom: 20,
+  },
+  inputContainer: {
+    marginBottom: 20,
+  },
+  registerButton: {
+    backgroundColor: '#4CAF50',
+    borderRadius: 8,
+    marginHorizontal: 16,
+    marginVertical: 8,
+  },
+  textLogin: {
+    textAlign: 'center',
+    color: '#4CAF50',
     marginVertical: 10,
   },
 });

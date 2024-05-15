@@ -8,7 +8,7 @@
             <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
             </span>
-            <span class="text">Add Scent</span>
+            <span class="text">Add Scent</span> 
         </a>
 
         <div class="table-responsive">

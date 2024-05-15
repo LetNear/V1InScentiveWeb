@@ -63,6 +63,10 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             User
                         </a>
+                        <a class="nav-link" href="<?= base_url("/home"); ?>">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            Main Page
+                        </a>
 
                     </div>
                 </div>

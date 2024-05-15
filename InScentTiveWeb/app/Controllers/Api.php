@@ -281,9 +281,9 @@ class Api extends BaseController
         ]);
     }
 
-    public function cart()
+    public function cart($id)
     {
-        $users = $this->CartModel->getCartInfo();
+        $users = $this->CartModel->getUserCarts($id);
         $response = [
             'code' => 200,
             'message' => 'Successfully fetched cart data',

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, Text, StyleSheet, Alert, ActivityIndicator } from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Button, Input, Icon } from "@rneui/themed";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -20,11 +20,11 @@ const LoginScreen = () => {
       setLoading(true); // Start the loading indicator
 
       const params = new URLSearchParams();
-
       params.append("email", userEmail);
 
-      const url = new URL("http://172.21.16.1/InScentTiveWeb/api/user/email");
+      const url = new URL("http://172.22.112.1/InScentTiveWeb/api/user/email");
       url.search = params;
+      
       // Make the login request to the server
       const response = await fetch(url, {
         method: "GET",
@@ -42,11 +42,12 @@ const LoginScreen = () => {
           }
 
           if (result) {
-            Alert.alert("Login Successful", "Welcome back!");
+            Alert.alert("Login Successful", "Welcome back to InScentTive!");
             setUser(userData);
             navigation.navigate("HomeScreen");
           } else {
             console.log("prompt: invalid credentials");
+            Alert.alert("Login Failed", "Invalid credentials. Please try again.");
           }
         });
       } else {
@@ -70,6 +71,8 @@ const LoginScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>InScentTive</Text>
+      <Text style={styles.subtitle}>Your Gateway to Exquisite Scents</Text>
       <Input
         label="Email Address"
         iconName="envelope"
@@ -80,20 +83,16 @@ const LoginScreen = () => {
       <Input
         label="Password"
         iconName="key"
-        password
         placeholder="Enter your Password"
         onChangeText={setUserPassword}
         value={userPassword}
+        secureTextEntry
       />
       <Button
         onPress={handleLogin}
         title="Login"
         type="solid"
-        containerStyle={{
-          marginHorizontal: 16,
-          marginVertical: 8,
-          borderRadius: 8,
-        }}
+        containerStyle={styles.loginButton}
         icon={<Icon name="sign-in" type="font-awesome" color="white" />}
       />
       <Text
@@ -110,14 +109,32 @@ const LoginScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#f8f8f8",
     justifyContent: "center",
     paddingHorizontal: 16,
   },
+  title: {
+    fontSize: 32,
+    fontWeight: "bold",
+    textAlign: "center",
+    color: "#4CAF50",
+    marginBottom: 10,
+  },
+  subtitle: {
+    fontSize: 16,
+    textAlign: "center",
+    color: "#777",
+    marginBottom: 20,
+  },
   textRegister: {
     textAlign: "center",
-    color: "blue",
+    color: "#4CAF50",
     marginVertical: 10,
+  },
+  loginButton: {
+    marginHorizontal: 16,
+    marginVertical: 8,
+    borderRadius: 8,
   },
   loaderContainer: {
     position: "absolute",
